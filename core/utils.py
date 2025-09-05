@@ -1,5 +1,3 @@
-# /core/utils.py
-
 """
 A collection of general-purpose, project-agnostic utility functions.
 
@@ -7,9 +5,13 @@ This module provides common helper functions that can be reused across
 different applications within the project.
 """
 
+from typing import Generator
+from typing import List
+from typing import TypeVar
 import uuid
-from typing import List, Generator, TypeVar
+
 from django.utils.text import slugify
+
 
 # A TypeVar allows us to create generic functions. 'T' can be any type.
 T = TypeVar("T")
