@@ -9,7 +9,6 @@ from rest_framework import serializers
 
 from rbac.models import Permission
 from rbac.models import Role
-from rbac.models import RolePermission
 from rbac.models import UserRole
 
 
