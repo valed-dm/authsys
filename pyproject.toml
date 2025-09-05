@@ -39,7 +39,7 @@ django-debug-toolbar = "^6.0.0"
 [tool.poetry.group.test.dependencies]
 pytest = "^8.4.1"
 pytest-cov = "^6.2.1"
-pytest-asyncio = "^1.1.0"
+pytest-django = "^4.11.1"
 
 # --- Code Quality & Formatting Tools ---
 [tool.ruff]
