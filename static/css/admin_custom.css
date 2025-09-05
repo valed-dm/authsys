@@ -1,0 +1,4 @@
+/* Highlight deleted users */
+tr.deleted-user {
+  background-color: #fdd !important;
+}

@@ -1,0 +1,477 @@
+/* =========================
+   CSS Variables for Theming
+   ========================= */
+:root {
+  --primary: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary: #7209b7;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --gray: #6c757d;
+  --success: #38b000;
+  --error: #d00000;
+  --warning: #ff9505;
+  --info: #4361ee;
+  --border-radius: 12px;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+  --nav-height: 60px;
+}
+
+/* =========================
+   Base Styles
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  line-height: 1.6;
+  color: var(--dark);
+  padding-top: var(--nav-height);
+}
+
+/* =========================
+   Navigation
+   ========================= */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.logo svg {
+  flex-shrink: 0;
+}
+
+/* Nav links */
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+/* =========================
+   Auth Buttons (Login/Register/Logout)
+   ========================= */
+.btn-auth {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: var(--transition);
+}
+
+.btn-auth:hover {
+  background: rgba(67, 97, 238, 0.1);
+  color: var(--primary-dark);
+}
+
+.btn-auth.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-auth.btn-primary:hover {
+  background: var(--primary-dark);
+  color: white;
+}
+
+.btn-auth.btn-danger {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.btn-auth.btn-danger:hover {
+  background: rgba(208, 0, 0, 0.1);
+  color: var(--error);
+}
+
+/* =========================
+   User Panel (Right Side Navbar)
+   ========================= */
+.nav-user-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+.nav-user-info .user-name {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.nav-user-info .user-email {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.nav-user-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-user-actions a {
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.nav-user-actions a:hover {
+  background: rgba(67, 97, 238, 0.1);
+}
+
+/* Dropdown Panel */
+.nav-user-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  width: 240px;
+  padding: 15px;
+  z-index: 1000;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.nav-user-dropdown.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Close Button */
+.btn-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* =========================
+   Content Area
+   ========================= */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   Auth Container & Forms
+   ========================= */
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.auth-header {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.auth-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.auth-header .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.auth-content {
+  padding: 30px;
+}
+
+/* Form elements */
+.auth-form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid #e1e5eb;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: var(--transition);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.error {
+  color: var(--error);
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+/* =========================
+   Messages & Token Info
+   ========================= */
+.messages {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.messages li {
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.messages .success {
+  background-color: rgba(56, 176, 0, 0.1);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.messages .error {
+  background-color: rgba(208, 0, 0, 0.1);
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+.messages .warning {
+  background-color: rgba(255, 149, 5, 0.1);
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+
+.messages .info {
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--info);
+  border: 1px solid var(--info);
+}
+
+.token-info {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: rgba(67, 97, 238, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+}
+
+.token-info p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+.token-info strong {
+  color: var(--primary);
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 768px) {
+  nav ul {
+    gap: 10px;
+  }
+
+  nav a {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .auth-container {
+    margin: 20px 0;
+  }
+
+  .auth-content {
+    padding: 20px;
+  }
+
+  .nav-user-panel {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    font-size: 0.8rem;
+  }
+
+  .nav-user-info .user-email {
+    display: none;
+  }
+
+  .nav-user-dropdown {
+    width: 200px;
+    right: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --nav-height: 50px;
+  }
+
+  .auth-header {
+    padding: 20px 15px;
+  }
+
+  .auth-header h2 {
+    font-size: 24px;
+  }
+
+  .token-info {
+    padding: 15px;
+  }
+
+  .form-group input {
+    padding: 12px;
+  }
+
+  .btn {
+    padding: 12px;
+  }
+}
+
+/* =========================
+   Alerts
+   ========================= */
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
