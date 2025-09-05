@@ -30,10 +30,10 @@ dependencies = [
 
 # --- Development Dependencies ---
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.12.11"                # Linter and formatter
-mypy = "^1.17.1"                 # Static type checker
-pre-commit = "^4.3.0"            # Git hooks manager
-django-debug-toolbar = "^6.0.0"  # Django debugging tools
+ruff = "^0.12.11"
+mypy = "^1.17.1"
+pre-commit = "^4.3.0"
+django-debug-toolbar = "^6.0.0"
 
 # --- Testing Dependencies ---
 [tool.poetry.group.test.dependencies]
@@ -49,7 +49,7 @@ fix = true
 unsafe-fixes = true
 
 [tool.ruff.lint]
-extend-select = ["E", "F", "W", "I", "B", "Q"] # Select all standard rules
+extend-select = ["E", "F", "W", "I", "B", "Q"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
