@@ -2,6 +2,7 @@ from typing import Any
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
+from drf_spectacular.utils import OpenApiResponse
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 from rest_framework import mixins
@@ -36,8 +37,20 @@ User = get_user_model()
     summary="Register a new user",
     description="Registers a user and returns their profile and JWT tokens.",
     request=UserRegisterSerializer,
-    responses={201: {"description": "User created successfully."}},
-    tags=["Authentication"] # Group in Swagger
+    responses={
+        201: OpenApiResponse(
+            description="User created successfully.",
+            response={
+                "type": "object",
+                "properties": {
+                    "user": {"$ref": "#/components/schemas/Profile"},
+                    "access": {"type": "string"},
+                    "refresh": {"type": "string"},
+                }
+            }
+        )
+    },
+    tags=["Authentication"]
 )
 class RegisterAPIView(generics.CreateAPIView):
     serializer_class = UserRegisterSerializer
@@ -62,8 +75,18 @@ class RegisterAPIView(generics.CreateAPIView):
     description="Authenticates a user and returns their profile and JWT tokens.",
     request=LoginSerializer,
     responses={
-        200: {"description": "Login successful."},
-        401: {"description": "Invalid credentials"},
+        200: OpenApiResponse(
+            description="Login successful.",
+            response={
+                "type": "object",
+                "properties": {
+                    "user": {"$ref": "#/components/schemas/Profile"},
+                    "access": {"type": "string"},
+                    "refresh": {"type": "string"},
+                }
+            }
+        ),
+        401: OpenApiResponse(description="Invalid credentials"),
     },
     tags=["Authentication"]
 )
@@ -149,7 +172,11 @@ class MyPermissionsAPIView(generics.RetrieveAPIView):
 @extend_schema(
     summary="Soft-delete my account",
     request={"application/json": {"properties": {"refresh": {"type": "string"}}}},
-    responses={204: "Account soft-deleted."},
+responses={
+        204: OpenApiResponse(
+            description="Account successfully soft-deleted. User is logged out."
+        )
+    },
     tags=["Profile (Me)"]
 )
 class SoftDeleteMeAPIView(APIView):
@@ -223,7 +250,12 @@ class DeletedUsersListAPIView(generics.ListAPIView):
 @extend_schema(
     summary="Restore a soft-deleted user",
     request=None,
-    responses={200: {"description": "User restored."}},
+    responses={
+        200: OpenApiResponse(
+            description="User restored successfully.",
+        ),
+        404: OpenApiResponse(description="User not found or not deleted."),
+    },
     tags=["Admin"]
 )
 class RestoreUserAPIView(APIView):
@@ -243,8 +275,8 @@ class RestoreUserAPIView(APIView):
 
 @extend_schema(
     summary="Permanently delete a user",
-    responses={204: "User permanently deleted."},
-    tags=["Admin"]
+    responses={204: OpenApiResponse(description="User permanently deleted.")},
+    tags=["Admin"],
 )
 class PermanentDeleteUserAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
