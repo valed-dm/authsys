@@ -133,45 +133,6 @@ class UserSerializer(serializers.ModelSerializer):
         return sorted(perms)
 
 
-# class UserSerializer(serializers.ModelSerializer):
-#     """
-#     A detailed, read-only representation of a user, including their RBAC role
-#     and permissions.
-#
-#     Used for the `/me/permissions/` endpoint to provide a complete authorization
-#     context.
-#     """
-#
-#     # SerializerMethodFields are used to compute values from related models.
-#     role = serializers.SerializerMethodField(
-#         help_text="The user's primary assigned role."
-#     )
-#     permissions = serializers.SerializerMethodField(
-#         help_text="A flattened list of all unique permission codes from the user's"
-#                   " roles."
-#     )
-#
-#     class Meta:
-#         model = User
-#         fields = ("id", "email", "first_name", "last_name", "role", "permissions")
-#
-#     @extend_schema_field(serializers.CharField(allow_null=True))
-#     def get_role(self, obj: User) -> Optional[str]:
-#         """Returns the name of the user's first assigned role."""
-#         user_role = obj.user_roles.first()
-#         return user_role.role.name if user_role and user_role.role else None
-#
-#     @extend_schema_field(serializers.ListField(child=serializers.CharField()))
-#     def get_permissions(self, obj: User) -> List[str]:
-#         """Returns a sorted list of unique permission codes for the user."""
-#         perms = {
-#             str(rp.permission)
-#             for ur in obj.user_roles.all()
-#             for rp in ur.role.role_perms.all()
-#         }
-#         return sorted(list(perms))
-
-
 # --- Admin-Specific Serializers ---
 
 
