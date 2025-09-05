@@ -344,7 +344,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ### Acknowledgment
 
-While the MIT License provides broad permissions, I kindly request that if you use this software in your own projects, you include a credit to the original author, **dmvaled**, with a link back to the source repository:
+While the MIT License provides broad permissions, I kindly request that if you use this software
+in your own projects, you include a credit to the original author, **valed-dm**, with a link back
+to the source repository:
 
 `https://github.com/valed-dm/authsys.git`
 
