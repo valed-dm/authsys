@@ -1,0 +1,40 @@
+{% extends "accounts/base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+  <div class="auth-container">
+    <div class="auth-header">
+      <div class="logo">
+        <img src="{% static 'images/favicon.ico' %}" alt="logo" width="24" height="24">
+        <span>AuthGuard</span>
+      </div>
+      <h2>Welcome, {{ profile.first_name|default:profile.email }}!</h2>
+      <p>Your account details</p>
+    </div>
+
+    <div class="auth-content">
+      <div class="profile-info">
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+        <p><strong>Joined:</strong> {{ profile.date_joined }}</p>
+
+        {% if jwt_access_token %}
+          <div class="token-info">
+            <p><strong>JWT Access Token:</strong> {{ jwt_access_token }}</p>
+          </div>
+        {% endif %}
+
+        {% if jwt_refresh_token %}
+          <div class="token-info">
+            <p><strong>JWT Refresh Token:</strong> {{ jwt_refresh_token }}</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="auth-footer">
+        <a href="{% url 'accounts_html:logout' %}" class="btn-auth btn-danger logout-link">Logout</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

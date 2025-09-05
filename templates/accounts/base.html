@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}AuthGuard - Secure Authentication & Permissions{% endblock %}</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
+          <path d="M16 2L4 8V16C4 22.6 9.4 28 16 28C22.6 28 28 22.6 28 16V8L16 2Z" fill="#4361ee"/>
+          <path d="M16 2V28C22.6 28 28 22.6 28 16V8L16 2Z" fill="#3a56d4"/>
+          <path d="M16 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" fill="#fff"/>
+          <path d="M20 18a2 2 0 0 1-2 2h-4a2 2 0 0 1 0-4h4a2 2 0 0 1 2 2Z" fill="#fff"/>
+        </svg>
+        <span>AuthGuard</span>
+      </div>
+
+      {% if request.user.is_authenticated %}
+        <div class="nav-user-panel">
+          <a href="#" class="btn-auth btn-secondary btn-manage" id="btn-manage">Manage Account</a>
+
+          <div class="nav-user-dropdown" id="userDropdown">
+            <button class="btn-close" id="btn-close">&times;</button>
+            <div class="nav-user-info">
+            <span class="user-name">
+              {% if request.user.first_name %}
+                {{ request.user.first_name }}
+              {% else %}
+                {{ request.user.username }}
+              {% endif %}
+            </span>
+              <span class="user-email">{{ request.user.email }}</span>
+            </div>
+            <div class="nav-user-actions">
+{#              <a href="{% url 'accounts_html:profile' %}" class="btn-auth">Profile</a>#}
+              <a href="{% url 'accounts_html:me' %}" class="btn-auth">My Account</a>
+              <a href="{% url 'accounts_html:logout' %}" class="btn-auth btn-danger logout-link">Logout</a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <ul class="nav-links">
+          <li><a href="{% url 'accounts_html:login' %}" class="btn-auth">Login</a></li>
+          <li><a href="{% url 'accounts_html:register' %}" class="btn-auth btn-primary">Register</a></li>
+        </ul>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+
+<main class="content">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- Global Scripts -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.JWT_ACCESS_TOKEN = "{{ jwt_access_token|default:'' }}";
+    window.JWT_REFRESH_TOKEN = "{{ jwt_refresh_token|default:'' }}";
+
+    function clearJWT() {
+      window.JWT_ACCESS_TOKEN = null;
+      window.JWT_REFRESH_TOKEN = null;
+      document.cookie = "jwt_access_token=; path=/; max-age=0";
+      document.cookie = "jwt_refresh_token=; path=/; max-age=0";
+    }
+
+    document.querySelectorAll('a.logout-link').forEach(link => {
+      link.addEventListener('click', clearJWT);
+    });
+
+    // Manage Account dropdown
+    const btnManage = document.getElementById('btn-manage');
+    const dropdown = document.getElementById('userDropdown');
+    const btnClose = document.getElementById('btn-close');
+
+    btnManage.addEventListener('click', function (e) {
+      e.preventDefault();
+      dropdown.classList.toggle('active');
+      btnManage.classList.toggle('active');
+    });
+
+    btnClose.addEventListener('click', function () {
+      dropdown.classList.remove('active');
+      btnManage.classList.remove('active');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!dropdown.contains(e.target) && e.target !== btnManage) {
+        dropdown.classList.remove('active');
+        btnManage.classList.remove('active');
+      }
+    });
+  });
+</script>
+
+<script src="{% static 'js/jwt_ajax.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

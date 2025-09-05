@@ -1,0 +1,22 @@
+{% extends "accounts/base.html" %}
+{% load static %}
+
+{% block title %}Account Deleted{% endblock %}
+
+{% block content %}
+  <div class="auth-container">
+    <div class="auth-header">
+      <div class="logo">
+        <img src="{% static 'images/favicon.ico' %}" alt="logo" width="24" height="24">
+        <span>AuthGuard</span>
+      </div>
+      <h2>Account Deleted</h2>
+      <p>We're sorry to see you go.</p>
+    </div>
+
+    <div class="auth-content" style="text-align:center;">
+      <p>Your account has been successfully deleted.</p>
+      <a href="{% url 'accounts_html:login' %}" class="btn btn-primary mt-3">Return to Login</a>
+    </div>
+  </div>
+{% endblock %}
