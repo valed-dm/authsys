@@ -136,6 +136,8 @@ This system is more than just a login page. It's a comprehensive security and us
 Такая декомпозированная структура позволяет гибко управлять доступом, создавая любые комбинации прав и назначая их
 пользователям через интуитивно понятные роли без изменения кода приложения.
 
+[<img src="docs/images/img_00.png" width="1000"/>]()
+
 ## Getting Started
 
 ### Prerequisites
