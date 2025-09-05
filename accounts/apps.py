@@ -1,4 +1,3 @@
-import os
 
 from django.apps import AppConfig
 
@@ -30,9 +29,6 @@ class AccountsConfig(AppConfig):
         The `RUN_MAIN` check prevents this logic from running twice in the
         development server's autoreload process.
         """
-        if os.environ.get("RUN_MAIN") != "true":
-            return
-
         # --- Signal Connection ---
         # Import signals locally to avoid circular import issues at startup.
         from django.conf import settings
