@@ -336,3 +336,16 @@ These are the primary API endpoints. For a detailed interactive reference, see t
 [<img src="docs/images/img_17.png" width="1000"/>]()
 
 [<img src="docs/images/img_18.png" width="1000"/>]()
+
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for the full text.
+
+### Acknowledgment
+
+While the MIT License provides broad permissions, I kindly request that if you use this software in your own projects, you include a credit to the original author, **dmvaled**, with a link back to the source repository:
+
+`https://github.com/valed-dm/authsys.git`
+
+Thank you for your consideration!
