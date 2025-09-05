@@ -1,0 +1,90 @@
+{% extends "accounts/base.html" %}
+{% load static %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+  <div class="auth-container">
+
+    {% if messages %}
+      <div class="messages-container" style="padding: 0 20px;">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="auth-header">
+      <div class="logo">
+        <img src="{% static 'images/favicon.ico' %}" alt="logo" width="24" height="24">
+        <span>AuthGuard</span>
+      </div>
+      <h2>My Account</h2>
+      <p>Manage your account details securely</p>
+    </div>
+
+    <div class="auth-content">
+      <div class="profile-info">
+        <p><strong>Email:</strong> {{ user.email }} (cannot be changed)</p>
+      </div>
+
+      <!-- UPDATE ACCOUNT FORM -->
+      <div class="update-form-container">
+        <h4>Update Your Information</h4>
+
+        <form method="post" action="{% url 'accounts_html:me' %}">
+          {% csrf_token %}
+
+          <!-- This will display any general form errors (e.g., "This field is required") -->
+          {% if update_form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ update_form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <!-- This will render the form fields AND their individual errors -->
+          <div class="form-group">
+            <label for="{{ update_form.first_name.id_for_label }}">First Name</label>
+            {{ update_form.first_name }}
+            {% if update_form.first_name.errors %}
+              <div class="error-text">{{ update_form.first_name.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ update_form.last_name.id_for_label }}">Last Name</label>
+            {{ update_form.last_name }}
+            {% if update_form.last_name.errors %}
+              <div class="error-text">{{ update_form.last_name.errors }}</div>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="btn-auth">Update Profile</button>
+        </form>
+      </div>
+
+      <hr style="margin: 20px 0;">
+
+      <!-- Account Actions -->
+      <h4>Account Actions</h4>
+      <div class="auth-footer" style="display:flex; gap:10px; flex-wrap:wrap;">
+        <!-- Logout -->
+        <form method="post" action="{% url 'accounts_html:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn-auth btn-danger logout-link">Logout</button>
+        </form>
+
+        <!-- Delete account -->
+        <form method="post" action="{% url 'accounts_html:delete_me' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn-auth btn-danger"
+                  onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            Delete Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

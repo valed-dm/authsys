@@ -1,0 +1,57 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static 'admin/css/login.css' %}">{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block content %}
+  {% if form.errors and not form.non_field_errors %}
+    <p class="errornote">{% translate "Please correct the errors below." %}</p>
+  {% endif %}
+
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+      <p class="errornote">{{ error }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <div id="content-main">
+    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+
+      <!-- USERNAME FIELD -->
+      <div class="form-row">
+        {{ form.username.errors }}
+        <!-- Manually render the label -->
+        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}:</label>
+        <!-- Manually render the input widget with admin styles -->
+        <input type="email"
+               name="{{ form.username.html_name }}"
+               class="vTextField"
+               value="{{ form.username.value|default_if_none:'' }}"
+               autofocus
+               required
+               id="{{ form.username.id_for_label }}">
+      </div>
+
+      <!-- PASSWORD FIELD -->
+      <div class="form-row">
+        {{ form.password.errors }}
+        <!-- Manually render the label -->
+        <label for="{{ form.password.id_for_label }}">{{ form.password.label }}:</label>
+        <!-- Manually render the input widget with admin styles -->
+        <input type="password"
+               name="{{ form.password.html_name }}"
+               class="vTextField"
+               required
+               id="{{ form.password.id_for_label }}">
+      </div>
+
+      <input type="hidden" name="next" value="{{ next }}">
+      <div class="submit-row">
+        <input type="submit" value="{% translate 'Log in' %}" class="default">
+      </div>
+    </form>
+  </div>
+{% endblock %}
